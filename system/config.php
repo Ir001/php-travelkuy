@@ -31,14 +31,20 @@ class Config extends mysqli{
 			$sql = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
 			$exec = $this->query($sql);
 			$row = $exec->num_rows;
-			if ($row == 1) {
-				$result = $exec->fetch_assoc();
+			$result = $exec->fetch_assoc();
+			if ($row == 1 AND $result['password'] == $password) {
 				$data = array(
 					'status' => 'success',
 					'message' => 'Sukses login',
 					'data' => $result,
 				);
 				$_SESSION['admin'] = $result;
+			}elseif($row == 1 AND $result['password'] != $password){
+				$data = array(
+					'status' => 'failed',
+					'message' => 'Kata sandi salah!',
+					'data' => $result,
+				);
 			}else{
 				$data = array(
 					'status' => 'failed',
@@ -47,21 +53,27 @@ class Config extends mysqli{
 				);
 			}
 		}else{
-			$sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+			$sql = "SELECT * FROM users WHERE email = '$username'";
 			$exec = $this->query($sql);
 			$row = $exec->num_rows;
-			if ($row == 1) {
-				$result = $exec->fetch_assoc();
+			$result = $exec->fetch_assoc();
+			if ($row == 1 AND $result['password'] == $password) {
 				$data = array(
 					'status' => 'success',
 					'message' => 'Sukses login',
 					'data' => $result,
 				);
 				$_SESSION['user'] = $result;
+			}elseif($row == 1 AND $result['password'] != $password){
+				$data = array(
+					'status' => 'failed',
+					'message' => 'Kata Sandi Salah!',
+					'data' => $result,
+				);
 			}else{
 				$data = array(
 					'status' => 'failed',
-					'message' => 'Username tidak tersedia!',
+					'message' => 'Email tidak terdaftar!',
 					'data' => null,
 				);
 			}
@@ -158,6 +170,8 @@ class Config extends mysqli{
 				'nama_destinasi' => $res['nama_destinasi'],
 				'harga_destinasi' => $res['harga_destinasi'],
 				'foto_destinasi' => $res['foto_destinasi'],
+				'deskripsi_destinasi' => $res['deskripsi_destinasi'],
+				'kota' => $res['kota'],
 			);
 			$i++;
 		}
@@ -236,3 +250,4 @@ class Config extends mysqli{
 	}
 }
 $app = new Config();
+$setting = $app->getSetting();
