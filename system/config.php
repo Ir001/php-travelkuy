@@ -117,12 +117,18 @@ class Config extends mysqli{
 		session_destroy();
 		return 1;
 	}
-	function addCart($id, $jumlah = 1){
-		if (isset($_SESSION['cart'][$id])) {
-			$_SESSION['cart'][$id]+=1;
-		}else{
-			$_SESSION['cart'][$id]=$jumlah;
-		}
+	function addCart($id, $jumlah=1, $cond="plus"){
+			if (isset($_SESSION['cart'][$id])) {
+				if ($cond == "plus") {
+					$_SESSION['cart'][$id]+=$jumlah;
+				}elseif($cond == "minus"){
+					$_SESSION['cart'][$id]-=$jumlah;
+				}else{
+					$_SESSION['cart'][$id]=$jumlah;
+				}
+			}else{
+				$_SESSION['cart'][$id]=$jumlah;
+			}
 		return 1;
 	}
 	function deleteCart($id){

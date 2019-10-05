@@ -50,8 +50,14 @@
 										<div class="col-md-6 col-sm-6 col-xs-6">
 											<form method="get" action="buy.php" class="pull-right">
 												<input type="hidden" name="id" value="<?php echo $detail['id_destinasi']; ?>">
-												<input type="number" name="jumlah" placeholder="Jumlah Tiket" min="1" max="10">
-												<button type="submit" class="btn btn-sm btn-primary">Booking</button>
+												<input type="number" name="jumlah" placeholder="Jumlah Tiket" min="1" max="99" value="<?php echo $_SESSION['cart'][$detail['id_destinasi']]; ?>" required>
+												<?php if (isset($_GET['page']) AND $_GET['page'] == "edit"): ?>
+													<input type="hidden" name="page" value="edit">
+													<button type="submit" class="btn btn-sm btn-primary">Ubah Jumlah</button>
+													<?php else: ?>
+													<button type="submit" class="btn btn-sm btn-primary">Booking</button>
+
+												<?php endif ?>
 											</form>
 										</div>
 									</div>

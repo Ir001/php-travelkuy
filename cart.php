@@ -38,20 +38,39 @@
 								</tr>
 								<?php 
 									$i=1;
-									while ($i <=10) {
+									$cart =  $_SESSION['cart'];
+									$jumlah_pesanan = count($cart);
+									if($jumlah_pesanan == 0):
 								 ?>
+								 <tr>
+								 	<td><?php echo count($cart); ?></td>
+								 	<td>Tidak Ada data</td>
+								 	<td>Tidak Ada data</td>
+								 	<td>Tidak Ada data</td>
+								 	<td>Tidak Ada data</td>
+								 	<td>Tidak Ada data</td>
+								 </tr>
+								 <?php else: ?>
+								 <?php foreach ($cart as $id => $jumlah): ?>
+								 <?php
+								 	$data = $app->showDetail($id);
+								 	$total = $data['harga_destinasi']*$jumlah;
+								  ?>
 								<tr>
 									<td><?php echo $i; ?></td>
-									<td>Paket Trip Jogja</td>
-									<td>Rp. 900.000</td>
-									<td>1</td>
-									<td>Rp. 900.000</td>
+									<td><?php echo $data['nama_destinasi'] ?></td>
+									<td>Rp.<?php echo number_format($data['harga_destinasi'],0,",","."); ?></td>
+									<td><?php echo $jumlah; ?></td>
+									<td>Rp.<?php echo number_format($total,0,",","."); ?></td>
 									<td>
-										<a href="" class="btn btn-sm btn-primary">Ubah</a>
-										<a href="" class="btn btn-sm btn-danger">Hapus Pesanan</a>
+										<a href="detail.php?id=<?php echo $data['id_destinasi']; ?>&page=edit" class="btn btn-sm btn-primary">Ubah</a>
+										<a href="delete.php?id=<?php echo $data['id_destinasi']; ?>" class="btn btn-sm btn-danger">Hapus Pesanan</a>
 									</td>
 								</tr>
-							<?php $i++;} ?>
+								<?php $i++; ?>
+								 <?php endforeach ?>
+									<?php endif ?>
+
 							</table>
 						</div>
 						<a href="destinasi.php" class="btn btn-info"><< Beli Tiket Lagi</a>

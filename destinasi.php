@@ -38,7 +38,7 @@
 								<span class="price">Rp.<?php echo number_format($data['harga_destinasi'], 0, ",", "."); ?></span>
 								<div class="row">
 									<div class="col-md-6">
-										<a href="#" class="btn btn-sm" style="border:none;">Booking</a>
+										<a href="buy.php?id=<?php echo $data['id_destinasi']; ?>" class="btn btn-sm" style="border:none;">Booking</a>
 									</div>
 									<div class="col-md-6">
 										<a href="detail.php?id=<?php echo $data['id_destinasi']; ?>" class="btn btn-sm pull-right" style="border:none;">Detail</a>
