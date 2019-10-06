@@ -5,7 +5,7 @@
   if ($loged == 0) {
     header("location:login.php");
   }
-  $destinasi = $admin->getDestinasi();
+  $pembelian = $admin->getPembelian();
  ?>
 <!DOCTYPE html>
 <html>
@@ -28,12 +28,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard - Artikel</h1>
+            <h1 class="m-0 text-dark">Dashboard - Pembelian Tiket</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-              <li class="breadcrumb-item active">Artikel</li>
+              <li class="breadcrumb-item active">Pembelian Tiket</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,42 +50,49 @@
               <div class="card-header border-0">
                 <h3 class="card-title">Destinasi</h3>
                 <div class="card-tools">
-                  <a href="add_destinasi.php" class="btn btn-tool btn-sm">
-                    <i class="fas fa-plus"></i>
-                  </a>
                 </div>
               </div>
               <div class="card-body">
-                <table id="destinasi" class="table table-striped table-valign-middle">
+                <table id="pelanggan" class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Destinasi</th>
-                    <th>Harga</th>
-                    <th>Foto</th>
+                    <th>Nama Lengkap</th>
+                    <th>Destinasi</th>
+                    <th>Jumlah</th>
+                    <th>Total</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
                     <?php 
                       $i=0;
-                      foreach ($destinasi as $data) {
+                      foreach (@$pembelian as $data) {
+                        $id_des = $data['id_destinasi'];
+                        $getDestinasi = $admin->showDestinasi($id_des);
                      ?>
                   <tr>
                     <td>
                       <?php echo $i+1; ?>
                     </td>
                     <td>
-                      <?php echo $data['nama_destinasi']; ?> 
+                      <?php echo $data['nama_lengkap']; ?> 
                     </td>
-                    <td>Rp.
-                      <?php echo number_format($data['harga_destinasi'],0, ",","."); ?> 
-                     
-
-                    </td>
-                    <td><img src="../images/<?php echo $data['foto_destinasi']; ?>" alt="Foto Destinasi" class="img img-thumbnail" style="max-width: 150px;"></td>
                     <td>
-                    	<a href="edit_destinasi.php?id=<?php echo $data['id_destinasi']; ?>" class="btn btn-sm btn-primary">Edit</a>
+                      <?php echo $getDestinasi['nama_destinasi']; ?>
+                    </td>
+                     <td>
+                      <?php echo $data['jumlah']; ?> 
+                    </td>
+                    <td>
+                     Rp. <?php echo number_format($data['total_pembelian'], 0, ",","."); ?> 
+                    </td>
+                    <td>
+                      <?php echo $data['status']; ?>
+                    </td>
+                    <td>
+                    	<a href="edit_pembelian.php?id=<?php echo $data['id_pembayaran']; ?>" class="btn btn-sm btn-primary">Detail</a>
                     	<a href="#" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                   </tr>
@@ -117,7 +124,7 @@
 <script src="plugins/toastr/toastr.min.js"></script>
 <script type="text/javascript">
   $(function(){
-    $('#destinasi').DataTable();
+    $('#pelanggan').DataTable();
   })
 </script>
 </body>

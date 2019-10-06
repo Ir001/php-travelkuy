@@ -32,24 +32,56 @@
 									<th>No</th>
 									<th>Destinasi Wisata</th>
 									<th>Kota</th>
+									<th>Status</th>
 									<th>Tgl Order</th>
 									<th>Aksi</th>
 								</tr>
 								<?php 
 									$i=1;
-									while ($i <=10) {
+									$pembelian = $app->getHistory();
+									
 								 ?>
+								 <?php foreach ($pembelian as $data): ?>
+								 <?php 
+								 	$status = $data['status'];
+								  ?>
 								<tr>
 									<td><?php echo $i; ?></td>
-									<td>Paket Trip Jogja</td>
-									<td>Yogyakarta</td>
-									<td>27/19/2019</td>
+									<td><?php echo $data['nama_destinasi']; ?></td>
+									<td><?php echo ucwords($data['kota']); ?></td>
+									<?php if ($status == "review"): ?>
+									<td><span class="label label-info">
+										Sedang ditinjau
+									</span></td>
+									<?php elseif($status == "valid"): ?>
+									<td><span class="label label-success"><?php echo ucwords($status); ?></span></td>
+									<?php elseif($status == "invalid"): ?>
+									<td><span class="label label-danger">Pembayaran tidak sah</span></td>
+									<?php elseif($status == "segera"): ?>
+									<td><span class="label label-warning">Segera Lakukan Pembayaran</span></td>
+									<?php else: ?>
+									<td><span class="label label-danger"><?php echo ucwords($status); ?></span></td>
+									<?php endif ?>
+									<td><?php echo $data['tgl_pembelian']; ?></td>
 									<td>
-										<a href="" class="btn btn-sm btn-primary">Bayar</a>
-										<a href="" class="btn btn-sm btn-danger">Hapus Pesanan</a>
+										<?php if ($status == "review"): ?>
+											<a href="kotak.php" target="_blank" class="btn btn-sm btn-primary">Kontak Kami</a>
+										<?php elseif($status == "segera"): ?>
+											<a href="payment.php?id=<?php echo $data['id_pembelian'] ?>" class="btn btn-sm btn-primary">Bayar</a>
+											<a href="#" class="btn btn-sm btn-danger">Hapus Pesanan</a>
+										<?php elseif($status == "valid"): ?>
+											<a href="ticket.php?id=<?php echo $data['id_pembelian'] ?>" class="btn btn-sm btn-info">Lihat Tiket</a>
+										<?php elseif($status == "invalid"): ?>
+											<a href="#" class="btn btn-sm btn-primary">Kontak</a>
+										<?php else: ?>
+											<a href="#" class="btn btn-sm btn-danger">Hapus Tiket</a>
+										<?php endif ?>
+										
+
 									</td>
 								</tr>
-							<?php $i++;} ?>
+									<?php $i++; ?>
+								 <?php endforeach ?>
 							</table>
 						</div>
 					</div>

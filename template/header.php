@@ -15,8 +15,9 @@
 							<li>
 								<a href="#" class="fh5co-sub-ddown">Pemesanan</a>
 								<ul class="fh5co-sub-menu">
-									<li><a href="#">Status Pemesanan</a></li>
-									<li><a href="#">Status Pembayaran</a></li>
+									<li><a href="cart.php">Keranjang Belanja</a></li>
+									<li><a href="history.php">Riwayat Pembelian</a></li>
+
 								</ul>
 							</li>
 							<li><a href="#">Ketentuan</a></li>
@@ -31,8 +32,7 @@
 							<?php endif ?>>
 								<a href="login.php" class="fh5co-sub-ddown">Akun</a>
 								<ul class="fh5co-sub-menu">
-									<li><a href="cart.php">Keranjang Belanja</a></li>
-									<li><a href="history.php">Riwayat Pembelian</a></li>
+									<li><a href="profile.php">Profile</a></li>
 									<li><a href="logout.php">Logout</a></li>
 								</ul>
 							</li>

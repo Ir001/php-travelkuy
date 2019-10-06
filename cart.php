@@ -38,12 +38,12 @@
 								</tr>
 								<?php 
 									$i=1;
-									$cart =  $_SESSION['cart'];
+									$cart =  @$_SESSION['cart'];
 									$jumlah_pesanan = count($cart);
 									if($jumlah_pesanan == 0):
 								 ?>
 								 <tr>
-								 	<td><?php echo count($cart); ?></td>
+								 	<td>1</td>
 								 	<td>Tidak Ada data</td>
 								 	<td>Tidak Ada data</td>
 								 	<td>Tidak Ada data</td>
@@ -51,6 +51,7 @@
 								 	<td>Tidak Ada data</td>
 								 </tr>
 								 <?php else: ?>
+								 	<?php $total_semua =0; ?>
 								 <?php foreach ($cart as $id => $jumlah): ?>
 								 <?php
 								 	$data = $app->showDetail($id);
@@ -68,13 +69,30 @@
 									</td>
 								</tr>
 								<?php $i++; ?>
+								<?php 
+								 	$total_semua+=$total;
+								 ?>
 								 <?php endforeach ?>
+								 <tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td><b>Total: Rp.<?php echo number_format($total_semua,0,",","."); ?></b></td>
+								</tr>
 									<?php endif ?>
+								
 
 							</table>
 						</div>
-						<a href="destinasi.php" class="btn btn-info"><< Beli Tiket Lagi</a>
-						<a href="checkout.php" class="btn btn-success pull-right">Checkout >></a>
+						<?php if ($jumlah_pesanan >= 1): ?>
+							<a href="destinasi.php" class="btn btn-info"><< Beli Tiket Lagi</a>
+							<a href="checkout.php" class="btn btn-success pull-right">Checkout >></a>
+						<?php else: ?>
+						<a href="destinasi.php" class="btn btn-info"><< Beli Tiket Dulu</a>
+						<a href="history.php" class="btn btn-success pull-right">Riwayat Belanja >></a>
+						<?php endif ?>
 					</div>
 				</div>
 			</div>

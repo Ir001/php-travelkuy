@@ -1,4 +1,36 @@
 <?php require 'system/config.php'; ?>
+<?php 
+	if (!isset($_SESSION['cart'])) {
+		header("location:cart.php");
+	}
+	//
+	if (isset($_POST['checkout'])) {
+		//
+		$id_user = $_SESSION['user']['id_users'];
+		// $id_destinasi = $_POST['id_destinasi'];
+		$id_payment = $_POST['payment'];
+		$name = $_POST['nama'];
+		$email = $_POST['email'];
+		$no_hp = $_POST['no_hp'];
+		$alamat = $_POST['alamat'];
+		$kota = $_POST['kota'];
+		$provinsi = $_POST['provinsi'];
+		$kode_pos = $_POST['kode_pos'];
+		//
+		foreach ($_SESSION['cart'] as $id => $jumlah) {
+			$id_destinasi = $id;
+			$data = $app->showDetail($id);
+			$total = $data['harga_destinasi']*$jumlah;
+			$checkout = $app->checkout($id_user, $id_destinasi, $id_payment, $name, $email, $no_hp, $alamat, $kota, $provinsi, $kode_pos, $total, $jumlah);
+			if ($checkout == 1) {
+				unset($_SESSION['cart']);
+				header("location:history.php");
+			}else{
+				header("location:checkout.php?return=failed");
+			}
+		}
+	}
+ ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -26,7 +58,7 @@
 						<h3>Checkout</h3>
 					</div>
 				</div>
-				<form action="#">
+				<form action="" method="post">
 					<?php 
 						$profile = $_SESSION['user'];
 						$nama = $profile['nama_pelanggan'];
@@ -42,6 +74,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
+										<input type="hidden" name="nama" value="<?php echo $nama; ?>">
 										<input type="text" class="form-control" placeholder="Nama Depan" value="<?php echo $nama_depan; ?>" required>
 									</div>
 								</div>
@@ -52,27 +85,32 @@
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="email" class="form-control" placeholder="Email" value="<?php echo $profile['email']; ?>" required>
+										<input type="email" name="email" class="form-control" placeholder="Email Aktif" value="<?php echo $profile['email']; ?>" required>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Alamat" required="">
+										<input type="text" name="no_hp" class="form-control" maxlength="14" placeholder="Nomor HP Aktif" value="62" autofocus="" required>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Kota/Kabupaten" required="">
+										<input type="text" name="alamat" class="form-control" placeholder="Alamat" >
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Provinsi" required="">
+										<input type="text" name="kota" class="form-control" placeholder="Kota/Kabupaten" required="">
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="number" class="form-control" placeholder="Kode Pos" required="">
+										<input type="text" name="provinsi" class="form-control" placeholder="Provinsi" required="">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="number" name="kode_pos" class="form-control" maxlength="5" placeholder="Kode Pos" required="">
 									</div>
 								</div>
 							</div>
@@ -84,10 +122,11 @@
 									<p>Hallo kak, <b><?php echo $_SESSION['user']['nama_pelanggan']; ?></b>. Berikut adalah detail pesanan Anda.</p>
 									<div class="row">
 										<div class="col-md-6 col-sm-6 col-xs-6"><h3 class="section-title">Tiket</h3></div>
-										<div class="col-md-6 col-sm-6 col-xs-6 text-right"><h3 class="section-title">Total</h3></div>
+										<div class="col-md-6 col-sm-6 col-xs-6 text-right"><h3 class="section-title">Subtotal</h3></div>
 										<!-- 
 											List Tiket
 										 -->
+										 <?php $total_semua = 0; ?>
 										 <?php foreach ($_SESSION['cart'] as $id => $jumlah): ?>
 										 <?php 
 										 	$data = $app->showDetail($id);
@@ -99,17 +138,26 @@
 										<div class="col-md-6 col-sm-6 col-xs-6 text-right">
 											<p>Rp.<?php echo number_format($total,0,",","."); ?></p>
 										</div>
+										<?php $total_semua+=$total; ?>
 										 <?php endforeach ?>
+										<div class="col-md-6 col-sm-6 col-xs-6"><h3 class="section-title">Total Belanja:</h3></div>
+										<div class="col-md-6 col-sm-6 col-xs-6 text-right"><h3 class="section-title">Rp.<?php echo number_format($total_semua,0,",",".") ?></h3></div>
+
 
 										 <div class="col-md-12">
 										 	<h4 class="section-title">Pilih Metode Pembayaran</h4>
 										 	<div class="form-group">
 										 		<select name="payment" class="form-control" required> 
 											 		<option value="" selected disabled>Pilih Metode Pembayaran</option>
-											 		<option value="bri">Bank BRI (Dicek manual)</option>
-											 		<option value="bri">Bank BCA (Dicek manual)</option>
-											 		<option value="bri">Bank BNI (Dicek manual)</option>
-											 		<option value="bri">OVO (Dicek manual)</option>
+											 <?php 
+											 	$i=1;
+											 	$getbank = $app->getAllBank();
+											  ?>
+											  <?php foreach ($getbank as $data): ?>
+
+											 		<option value="<?php echo $data['id_payment'] ?>"><?php echo $data['nama_bank']; ?></option>
+											 	<?php $i++; ?>		
+											  <?php endforeach ?>
 											 	</select>
 										 	</div>
 										 </div>
@@ -120,7 +168,7 @@
 												<label><input type="checkbox" value="1" required> Saya telah setuju dengan <a href="#">Ketentuan Layanan</a> situs <?=$setting['title'];?></label>
 											</div>
 											<a href="cart.php"><< Kembali</a>
-											<button class="btn btn-primary pull-right">Buat Pesanan</button>
+											<button type="submit" name="checkout" class="btn btn-primary pull-right">Buat Pesanan</button>
 										</div>
 									</div>
 								</div>	

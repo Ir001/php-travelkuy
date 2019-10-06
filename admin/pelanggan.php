@@ -5,7 +5,7 @@
   if ($loged == 0) {
     header("location:login.php");
   }
-  $destinasi = $admin->getDestinasi();
+  $pelanggan = $admin->getPelanggan();
  ?>
 <!DOCTYPE html>
 <html>
@@ -28,12 +28,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard - Artikel</h1>
+            <h1 class="m-0 text-dark">Dashboard - Pelanggan</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-              <li class="breadcrumb-item active">Artikel</li>
+              <li class="breadcrumb-item active">Pelanggan</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -56,37 +56,32 @@
                 </div>
               </div>
               <div class="card-body">
-                <table id="destinasi" class="table table-striped table-valign-middle">
+                <table id="pelanggan" class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Destinasi</th>
-                    <th>Harga</th>
-                    <th>Foto</th>
+                    <th>Nama</th>
+                    <th>Email</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
                     <?php 
                       $i=0;
-                      foreach ($destinasi as $data) {
+                      foreach ($pelanggan as $data) {
                      ?>
                   <tr>
                     <td>
                       <?php echo $i+1; ?>
                     </td>
                     <td>
-                      <?php echo $data['nama_destinasi']; ?> 
+                      <?php echo $data['nama_pelanggan']; ?> 
                     </td>
-                    <td>Rp.
-                      <?php echo number_format($data['harga_destinasi'],0, ",","."); ?> 
-                     
-
+                     <td>
+                      <?php echo $data['email']; ?> 
                     </td>
-                    <td><img src="../images/<?php echo $data['foto_destinasi']; ?>" alt="Foto Destinasi" class="img img-thumbnail" style="max-width: 150px;"></td>
                     <td>
-                    	<a href="edit_destinasi.php?id=<?php echo $data['id_destinasi']; ?>" class="btn btn-sm btn-primary">Edit</a>
-                    	<a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    	<a href="delete_user.php?id=<?php echo $data['id_users']; ?>" class="btn btn-sm btn-danger" onclick="var status = confirm('Apakah Anda yakin? data yang sudah dihapus tidak dapat dikembalikan'); if (status == true) {return true} else{return false}">Delete</a>
                     </td>
                   </tr>
                   <?php $i++; } ?>
@@ -117,8 +112,21 @@
 <script src="plugins/toastr/toastr.min.js"></script>
 <script type="text/javascript">
   $(function(){
-    $('#destinasi').DataTable();
+    $('#pelanggan').DataTable();
   })
+  var realy = function(){
+   var ask = confirm('Apakah anda yakin?');
+   if (ask == true) {
+    return true;
+   }else{
+    return false;
+   }
+  }
+   <?php if (isset($_GET['status']) AND $_GET['status'] == "failed"):?>
+          toastr.error('Error!');
+    <?php elseif(isset($_GET['status']) AND $_GET['status'] == "success"): ?>
+          toastr.success('Berhasil menghapus user');
+    <?php endif; ?>
 </script>
 </body>
 </html>
