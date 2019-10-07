@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ticket</title>
+	<title><?php echo $setting['title']; ?> &mdash; <?php echo $setting['subtitle']; ?></title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <style type="text/css">

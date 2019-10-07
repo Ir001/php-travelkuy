@@ -2,6 +2,8 @@
 <?php 
 	if (!isset($_SESSION['cart'])) {
 		header("location:cart.php");
+	}elseif (!isset($_SESSION['user'])) {
+		header("location:login.php");
 	}
 	//
 	if (isset($_POST['checkout'])) {
@@ -39,7 +41,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title><?php echo $setting['title']; ?> &mdash; <?php echo $setting['subtitle']; ?></title>
+	<title><?php echo $setting['title']; ?> &mdash; Checkout</title>
 	<?php include 'template/meta_head.php'; ?>
 	</head>
 	<body>
@@ -140,8 +142,9 @@
 										</div>
 										<?php $total_semua+=$total; ?>
 										 <?php endforeach ?>
-										<div class="col-md-6 col-sm-6 col-xs-6"><h3 class="section-title">Total Belanja:</h3></div>
-										<div class="col-md-6 col-sm-6 col-xs-6 text-right"><h3 class="section-title">Rp.<?php echo number_format($total_semua,0,",",".") ?></h3></div>
+										<div class="clearfix"></div>
+										<div class="col-md-4 col-sm-4 col-xs-4"><h3 class="section-title">Total Belanja:</h3></div>
+										<div class="col-md-8 col-sm-8 col-xs-8 text-right"><h3 class="section-title">Rp.<?php echo number_format($total_semua,0,",",".") ?></h3></div>
 
 
 										 <div class="col-md-12">

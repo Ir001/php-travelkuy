@@ -12,7 +12,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Title | Destinasi</title>
+  <title><?php echo $setting['title']; ?> &mdash; Pembelian</title>
   <?php include 'template/meta_head.php'; ?>
   <!-- Toastr -->
   <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
@@ -93,7 +93,7 @@
                     </td>
                     <td>
                     	<a href="edit_pembelian.php?id=<?php echo $data['id_pembayaran']; ?>" class="btn btn-sm btn-primary">Detail</a>
-                    	<a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    	<!-- <a href="#" class="btn btn-sm btn-danger">Delete</a> -->
                     </td>
                   </tr>
                   <?php $i++; } ?>

@@ -44,7 +44,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Title | Destinasi</title>
+  <title><?php echo $setting['title']; ?> &mdash; Edit Pembelian</title>
   <?php include 'template/meta_head.php'; ?>
   <!-- Toastr -->
   <link rel="stylesheet" href="plugins/toastr/toastr.min.css">

@@ -117,6 +117,34 @@ class Config extends mysqli{
 		session_destroy();
 		return 1;
 	}
+	function contactUs($fullname, $email, $message){
+		$fullname = $this->real_escape_string($fullname);
+		$email = $this->real_escape_string($email);
+		$message = $this->real_escape_string($message);
+		//
+		$sql = "INSERT INTO kontak (fullname, email, message, tgl) VALUES ('$fullname', '$email', '$message', NOW())";
+		if ($exec= $this->query($sql)) {
+			return 1;
+		}else{
+			return 0;
+		}
+
+	}
+	function getPage($permalink){
+		$permalink = trim($this->real_escape_string($permalink));
+		$sql = "SELECT * FROM page WHERE permalink ='$permalink'";
+		$exec = $this->query($sql);
+		$data = $exec->fetch_assoc();
+		return @$data;
+	}
+	function getPagebyId($id){
+		$id = trim($this->real_escape_string($id));
+		$sql = "SELECT * FROM page WHERE id ='$id'";
+		$exec = $this->query($sql);
+		$data = $exec->fetch_assoc();
+		return @$data;
+	}
+
 	function addCart($id, $jumlah=1, $cond="plus"){
 			if (isset($_SESSION['cart'][$id])) {
 				if ($cond == "plus") {
@@ -319,6 +347,16 @@ class Config extends mysqli{
 
 		}
 	}
+	function updateSetting($title, $subtitle, $description){
+		$sql = "UPDATE setting SET title = '$title', subtitle = '$subtitle', description='$description'";
+		if ($exec = $this->query($sql)) {
+			$data['status'] = "success";
+		}else{
+			$data['status'] = "failed";
+		}
+		return @$data;
+
+	}
 
 
 
@@ -473,6 +511,56 @@ class Config extends mysqli{
 			return 0;
 		}
 
+	}
+	function grabPage(){
+		$sql = "SELECT * FROM page";
+		$exec = $this->query($sql);
+		$i=0;
+		while ($res = $exec->fetch_assoc()) {
+			$data[$i] = array(
+				'id' => $res['id'],
+				'permalink' => $res['permalink'],
+				'subtitle' => $res['subtitle'],
+				'content' => $res['content'],
+			);
+			$i++;
+		}
+		return @$data;
+	}
+	function updatePage($id, $subtitle, $content){
+		$subtitle = $this->real_escape_string($subtitle);
+		$content = $this->real_escape_string($content);
+		
+		// 
+		$sql = "UPDATE page SET subtitle='$subtitle', content='$content' WHERE id = $id";
+		if ($exec = $this->query($sql)) {
+			$data = array(
+				'status' => 'success',
+				'message' => 'Berhasil menambahkan destinasi baru'
+			);
+		}else{
+			$data = array(
+				'status' => 'failed',
+				'message' => 'Error!'
+			);
+		}
+		return @$data;
+	}
+	function grabContact(){
+		$sql = "SELECT * FROM kontak";
+		$exec = $this->query($sql);
+		$i=0;
+		while ($res = $exec->fetch_assoc()) {
+			$data[$i] = array(
+				'id_saran' => $res['id_saran'],
+				'fullname' => $res['fullname'],
+				'email' => $res['email'],
+				'message' => $res['message'],
+				'tgl' => $res['tgl'],
+			);
+			$i++;
+		}
+		return @$data;
 	}
 }
 $app = new Config();

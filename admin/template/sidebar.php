@@ -57,11 +57,35 @@
               </p>
             </a>
           </li>
+           <li class="nav-item">
+            <a href="page.php" class="nav-link">
+              <i class="nav-icon fas fa-th "></i>
+              <p>
+                Halaman
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="contact.php" class="nav-link">
+              <i class="nav-icon fas fa-th "></i>
+              <p>
+                Kontak Kami
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="pelanggan.php" class="nav-link">
               <i class="nav-icon fas fa-th "></i>
               <p>
                 Pelanggan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="setting.php" class="nav-link">
+              <i class="nav-icon fas fa-th "></i>
+              <p>
+                Pengaturan
               </p>
             </a>
           </li>

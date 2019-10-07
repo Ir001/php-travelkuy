@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title><?php echo $setting['title']; ?> &mdash; <?php echo $setting['subtitle']; ?></title>
+	<title><?php echo $setting['title']; ?> &mdash; Keranjang Belanja</title>
 	<?php include 'template/meta_head.php'; ?>
 	</head>
 	<body>

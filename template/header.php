@@ -2,7 +2,7 @@
 			<div class="container">
 				<div class="nav-header">
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-					<h1 id="fh5co-logo"><a href="index.html"><i class="icon-airplane"></i>Travel</a></h1>
+					<h1 id="fh5co-logo"><a href="index.php"><i class="icon-airplane"></i><?php echo $setting['title']; ?></a></h1>
 					<!-- START #fh5co-menu-wrap -->
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul class="sf-menu" id="fh5co-primary-menu">
@@ -20,19 +20,19 @@
 
 								</ul>
 							</li>
-							<li><a href="#">Ketentuan</a></li>
+							<li><a href="page.php?permalink=ketentuan">Ketentuan</a></li>
 							<li <?php if ($_SERVER['PHP_SELF'] == "/contact.php"): ?>
 								class="active"
 							<?php endif ?> ><a href="contact.php">Kontak</a></li>
-							<li><a href="#">Bantuan</a></li>
-							<li><a href="#">Karir</a></li>
+							<li><a href="page.php?permalink=bantuan">Bantuan</a></li>
+							<li><a href="page.php?permalink=karir">Karir</a></li>
 							<?php if (isset($_SESSION['user'])): ?>
 								<li <?php if ($_SERVER['PHP_SELF'] == "/checkout.php" || $_SERVER['PHP_SELF'] == "/history.php"): ?>
 								class="active"
 							<?php endif ?>>
 								<a href="login.php" class="fh5co-sub-ddown">Akun</a>
 								<ul class="fh5co-sub-menu">
-									<li><a href="profile.php">Profile</a></li>
+									<!-- <li><a href="profile.php">Profile</a></li> -->
 									<li><a href="logout.php">Logout</a></li>
 								</ul>
 							</li>

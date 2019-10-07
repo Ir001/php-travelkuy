@@ -11,7 +11,7 @@
     if ($id=="") {
       header("location:destinasi.php");
     }else{ 
-      $destinasi = $admin->showDestinasi($id);
+      $page = $admin->getPagebyId($id);
     }
   }
   $data = array(
@@ -21,15 +21,9 @@
   // 
 
   if (isset($_POST['edit'])) {
-    $nama = $_POST['nama_destinasi'];
-    $harga = $_POST['harga'];
-    $deskripsi= $_POST['deskripsi_destinasi'];
-    $kota = $_POST['kota'];
-    $foto = $_FILES['foto']['name'];
-    $file_img = $_FILES['foto']['tmp_name'];
-    $rename = date("YmdHis")."_".$foto;
-    move_uploaded_file($file_img, "../images/$rename");
-    $add = $admin->updateDestinasi($id, $nama, $harga, $rename, $deskripsi, $kota);
+    $subtitle = $_POST['subtitle'];
+    $content = $_POST['content'];
+    $add = $admin->updatePage($id, $subtitle, $content);
     $data = $add;
   }
  ?>
@@ -56,12 +50,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard - Edit Destinasi</h1>
+            <h1 class="m-0 text-dark">Dashboard - Edit Halaman</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-              <li class="breadcrumb-item active">Edit Destinasi</li>
+              <li class="breadcrumb-item active">Edit Halaman</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -76,7 +70,7 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Edit Destinasi</h3>
+                <h3 class="card-title">Edit Halaman</h3>
                 <div class="card-tools">
                   <a href="add_destinasi.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-plus"></i>
@@ -86,24 +80,12 @@
               <div class="card-body">
                 <form action="" method="post" enctype="multipart/form-data">
                   <div class="form-group">
-                    <label>Nama Destinasi:</label>
-                    <input type="text" class="form-control" name="nama_destinasi" value="<?php echo $destinasi['nama_destinasi']; ?>" placeholder="Trip Wisata Dufan" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Kota:</label>
-                    <input type="text" class="form-control" name="kota" value="<?php echo $destinasi['kota']; ?>" placeholder="Jakarta" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Harga:</label>
-                    <input type="number" class="form-control" min="0" value="<?php echo $destinasi['harga_destinasi']; ?>" name="harga" placeholder="1.000.000" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Foto:</label>
-                    <input type="file" class="form-control" name="foto" required>
+                    <label>Judul:</label>
+                    <input type="text" class="form-control" name="subtitle" value="<?php echo $page['subtitle']; ?>" placeholder="Trip Wisata Dufan" required>
                   </div>
                    <div class="form-group">
-                    <label>Deskripsi Wisata:</label>
-                    <textarea name="deskripsi_destinasi" class="textarea"><?php echo $destinasi['deskripsi_destinasi']; ?></textarea>
+                    <label>Content:</label>
+                    <textarea name="content" class="textarea"><?php echo $page['content']; ?></textarea>
                   </div>
                   <div class="form-group">
                     <div class="col-6">

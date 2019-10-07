@@ -22,8 +22,8 @@
 		<!-- end:header-top -->
 	
 		<div class="fh5co-hero">
-			<!-- <div class="fh5co-overlay"></div> -->
-			<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(images/cover_bg_4.jpg);">
+			<div class="fh5co-overlay"></div>
+			<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(images/6.jpg); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
 				<div class="desc">
 					<div class="container">
 						<div class="row">
@@ -54,7 +54,8 @@
 					<?php foreach ($destinasi as $data): ?>
 						
 					<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-						<div href="#"><img src="images/place-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+						<div href="detail.php?id=<?php echo $data['id_destinasi']; ?>">
+							<img src="images/<?php echo $data['foto_destinasi']; ?>" alt=" " class="img-responsive" style="height:280px">
 							<div class="desc">
 								<span></span>
 								<h3><?php echo $data['nama_destinasi']; ?></h3>
@@ -73,7 +74,7 @@
 					</div>
 					<?php endforeach ?>
 					<div class="col-md-12 text-center animate-box">
-						<p><a class="btn btn-primary btn-outline btn-lg" href="#">Lihat Semuanya <i class="icon-arrow-right22"></i></a></p>
+						<p><a class="btn btn-primary btn-outline btn-lg" href="destinasi.php">Lihat Semuanya <i class="icon-arrow-right22"></i></a></p>
 					</div>
 				</div>
 			</div>

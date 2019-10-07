@@ -4,6 +4,9 @@
   $loged = $admin->loged();
   if ($loged == 0) {
     header("location:login.php");
+  }elseif(isset($_GET['page']) AND $_GET['page'] == "logout"){
+    unset($_SESSION['admin']);
+    header("location:login.php?success_logout");
   }
  ?>
 <!DOCTYPE html>
@@ -17,8 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Starter</title>
-
+  <title><?php echo $setting['title']; ?> &mdash; <?php echo $setting['subtitle']; ?></title>
   <?php include 'template/meta_head.php'; ?>
 </head>
 <body class="hold-transition sidebar-mini">

@@ -10,7 +10,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title><?php echo $setting['title']; ?> &mdash; <?php echo $setting['subtitle']; ?></title>
+	<title><?php echo $setting['title']; ?> &mdash; Destinasi Wisata</title>
 	<?php include 'template/meta_head.php'; ?>
 	</head>
 	<body>
@@ -30,7 +30,7 @@
 					<?php foreach ($destinasi as $data): ?>
 						
 					<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-						<div href="#"><img src="images/place-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+						<div href="detail.php?id=<?php echo $data['id_destinasi']; ?>"><img src="images/<?php echo $data['foto_destinasi']; ?>" alt=" " class="img-responsive" style="height:280px">
 							<div class="desc">
 								<span></span>
 								<h3><?php echo $data['nama_destinasi']; ?></h3>

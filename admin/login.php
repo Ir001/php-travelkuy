@@ -14,7 +14,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Log in</title>
+  <title><?php echo $setting['title']; ?>  | Log in</title>
   <?php include 'template/meta_head.php'; ?>
   <!-- Ionicons -->
   <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
@@ -22,7 +22,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="login.php"><b>Admin</b>LTE</a>
+    <a href="login.php"><b>Admin</b>System</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
