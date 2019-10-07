@@ -8,10 +8,11 @@
 		$login = $app->login($email, $password);
 		$data = $login;
 		if ($data['status'] == "success") {
-			if (isset($_SESSION['cart'])) {
+			$cart = count($_SESSION['cart']);
+			if ($cart >= 1) {
 				header("location:checkout.php");
 			}else{
-				header("location:history.php");
+				header("location:cart.php");
 			}
 		}
 	}elseif (isset($_SESSION['user'])) {
