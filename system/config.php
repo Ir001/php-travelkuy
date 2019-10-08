@@ -4,7 +4,7 @@ session_start();
 //setting database koneksi
 define('DB_HOST', 'localhost'); 
 define('DB_USER', 'root'); 
-define('DB_PASSWD', 'root'); 
+define('DB_PASSWD', ''); 
 define('DB_NAME', 'db_pariwisata'); 
 
 $conn  = new mysqli(DB_HOST, DB_USER, DB_PASSWD, DB_NAME);
@@ -374,7 +374,7 @@ class Config extends mysqli{
 		}
 	}
 	function getDestinasi($limit=999){
-		$sql = "SELECT * FROM destinasi order by id_destinasi LIMIT 0, $limit";
+		$sql = "SELECT * FROM destinasi order by id_destinasi DESC LIMIT 0, $limit";
 		$exec = $this->query($sql);
 		$i=0;
 		while ($res = $exec->fetch_assoc()) {

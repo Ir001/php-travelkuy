@@ -10,7 +10,7 @@
 								class="active"
 							<?php endif ?>><a href="index.php">Beranda</a></li>
 							<li>
-								<a href="destinasi.php">Desinasi</a>
+								<a href="destinasi.php">Destinasi</a>
 							</li>
 							<li>
 								<a href="#" class="fh5co-sub-ddown">Pemesanan</a>
@@ -25,7 +25,6 @@
 								class="active"
 							<?php endif ?> ><a href="contact.php">Kontak</a></li>
 							<li><a href="page.php?permalink=bantuan">Bantuan</a></li>
-							<li><a href="page.php?permalink=karir">Karir</a></li>
 							<?php if (isset($_SESSION['user'])): ?>
 								<li <?php if ($_SERVER['PHP_SELF'] == "/checkout.php" || $_SERVER['PHP_SELF'] == "/history.php"): ?>
 								class="active"
