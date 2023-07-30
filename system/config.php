@@ -4,8 +4,8 @@ session_start();
 //setting database koneksi
 define('DB_HOST', 'localhost'); 
 define('DB_USER', 'root'); 
-define('DB_PASSWD', ''); 
-define('DB_NAME', 'db_pariwisata'); 
+define('DB_PASSWD', 'root'); 
+define('DB_NAME', 'travelkuy'); 
 
 $conn  = new mysqli(DB_HOST, DB_USER, DB_PASSWD, DB_NAME);
 
@@ -15,7 +15,6 @@ class Config extends mysqli{
         if (mysqli_connect_error()) {
             exit('Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
         }
-        parent::set_charset('utf-8');
 	}
 	function getSetting(){
 		$exec = $this->query("SELECT * FROM setting");

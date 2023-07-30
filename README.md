@@ -1,5 +1,5 @@
 # TravelKuy
-
+![Preview](images/preview.png)
 
 
 Travelkuy adalah situs penyedia paket travel di Indonesia.
@@ -7,28 +7,32 @@ Travelkuy adalah situs penyedia paket travel di Indonesia.
   - Dibuat menggunakan PHP Native
   - Bootstrap 4.x
  
+Support PHP 8.2
+## Installation
+```bash
+git clone https://github.com/ir001/php-travelkuy.git && cd php-travelkuy.git
+```
+### Configure database authentication
+Edit `system\config.php` file
+```php
+define('DB_HOST', 'localhost'); 
+define('DB_USER', 'root');  //Change your username
+define('DB_PASSWD', 'root');  //Change your password
+define('DB_NAME', 'travelkuy'); 
+```
+### Import database
+```bash
+mysql -u root -p
+```
+```sql
+create database travelkuy;
+```
+```bash
+mysql -u root -p travelkuy < DB/db_pariwisata.sql
+```
 
-# New Features!
-
-  - Import a HTML file and watch it magically convert to Markdown
-  - Drag and drop images (requires your Dropbox account be linked)
-
-
-You can also:
-  - Import and save files from GitHub, Dropbox, Google Drive and One Drive
-  - Drag and drop markdown and HTML files into Dillinger
-  - Export documents as Markdown, HTML and PDF
-
-#### Follow My Social Media
-
-[Facebook](https://www.facebook.com/ir001)
+## Contact Me
+[Facebook](https://www.facebook.com/ir001.id)
 [Instagram](https://www.instagram.com/hjkwz)
 [LinkedIn](https://id.linkedin.com/in/irwan-antonio)
 
-License
-----
-
-MIT
-
-
-**Free Software, Hell Yeah!**
